@@ -9,12 +9,21 @@ def get_file_name(file_path, with_extension=False):
         return file_name
 
 def gen_dir(new_dir, remove_old=False):
-    import os
+    import os, shutil
     if remove_old:
-        import shutil
         if os.path.exists(new_dir):
-            shutil.rmtree(new_dir)
-        os.mkdir(new_dir)
+            for file_name in os.listdir(new_dir):
+                file_path = os.path.join(new_dir, file_name)
+                try:
+                    if os.path.isfile(file_path):
+                        os.unlink(file_path)
+                    elif os.path.isdir(file_path):
+                        shutil.rmtree(file_path)
+                except Exception as e:
+                    print(e)
+        else:
+            os.mkdir(new_dir)
+
 
     elif not os.path.exists(new_dir):
         os.mkdir(new_dir)
