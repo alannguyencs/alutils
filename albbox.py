@@ -59,19 +59,33 @@ def get_bbox_from_xml(xml_path):
     json_data['annotation'] = bbox_list
     return json.dumps(json_data)
 
-def visualize_bboxes(sk_image, bboxes, color):
+def collect_bbox_coordinate(bboxes_data):
+    bboxes = []
+    for bbox_data in bboxes_data:
+        x1 = int(bbox_data['x1'])
+        x2 = int(bbox_data['x2'])
+        y1 = int(bbox_data['y1'])
+        y2 = int(bbox_data['y2'])
+        bboxes.append([x1, y1, x2, y2])
+
+    return bboxes
+
+def visualize_bboxes(skimage_, bboxes, colors=None):
+    if colors == None:
+        colors = [[255, 0, 0] for _ in range(len(bboxes))]
+    sk_image = np.copy(skimage_)
     def relocate(x, t):
         x = max(0, x)
         x = min(t-1, x)
         return x
-    color = np.array(color)
+    color = np.array(list(colors))
     (height, width, _) = sk_image.shape
-    for [x1, y1, x2, y2] in bboxes:
-        sk_image[y1:y2, relocate(x1-3, width):relocate(x1+3, width)] = color
-        sk_image[y1:y2, relocate(x2-3, width):relocate(x2+3, width)] = color
+    for bbox_id, [x1, y1, x2, y2] in enumerate(bboxes):
+        sk_image[y1:y2, relocate(x1-3, width):relocate(x1+3, width)] = color[bbox_id]
+        sk_image[y1:y2, relocate(x2-3, width):relocate(x2+3, width)] = color[bbox_id]
 
-        sk_image[relocate(y1-3, height):relocate(y1+3, height), x1:x2] = color
-        sk_image[relocate(y2-3, height):relocate(y2+3, height), x1:x2] = color
+        sk_image[relocate(y1-3, height):relocate(y1+3, height), x1:x2] = color[bbox_id]
+        sk_image[relocate(y2-3, height):relocate(y2+3, height), x1:x2] = color[bbox_id]
 
     return sk_image
 

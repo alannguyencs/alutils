@@ -14,7 +14,12 @@ def gen_dir(new_dir, remove_old=False):
         import shutil
         if os.path.exists(new_dir):
             shutil.rmtree(new_dir)
-        os.mkdir(new_dir)
+        try:
+            original_umask = os.umask(0)
+            os.makedirs(new_dir, mode=0o777)
+        finally:
+            os.umask(original_umask)
+
 
     elif not os.path.exists(new_dir):
         os.mkdir(new_dir)

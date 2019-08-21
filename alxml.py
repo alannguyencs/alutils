@@ -10,10 +10,10 @@ def collect_bboxes(xml_path):
     for obj in root.findall('object'):
         bbox_data = OrderedDict()
         bbox = obj.find('bndbox')
-        bbox_data['x1'] = int(bbox.find('xmin').text)
-        bbox_data['y1'] = int(bbox.find('ymin').text)
-        bbox_data['x2'] = int(bbox.find('xmax').text)
-        bbox_data['y2'] = int(bbox.find('ymax').text)
+        bbox_data['x1'] = int(float(bbox.find('xmin').text))
+        bbox_data['y1'] = int(float(bbox.find('ymin').text))
+        bbox_data['x2'] = int(float(bbox.find('xmax').text))
+        bbox_data['y2'] = int(float(bbox.find('ymax').text))
 
         try:
             bbox_data['category'] = obj.find('name').text
