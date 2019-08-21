@@ -1,2 +1,8 @@
+<<<<<<< HEAD
 *
 !*.py
+=======
+*
+!*.py
+!.gitignore
+>>>>>>> 170c82bab771dd4d12ac44c7e90c45a2f13aea6e

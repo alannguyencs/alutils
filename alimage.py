@@ -17,3 +17,4 @@ def concatenate_image(pil_image_a, pil_image_b, direction='HORIZONTAL'):
         new_image.paste(pil_image_b, (0, ha))
 
     return new_image
+

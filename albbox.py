@@ -78,7 +78,7 @@ def visualize_bboxes(skimage_, bboxes, colors=None):
         x = max(0, x)
         x = min(t-1, x)
         return x
-    color = np.array(list(colors))
+    color = np.array(colors)
     (height, width, _) = sk_image.shape
     for bbox_id, [x1, y1, x2, y2] in enumerate(bboxes):
         sk_image[y1:y2, relocate(x1-3, width):relocate(x1+3, width)] = color[bbox_id]
