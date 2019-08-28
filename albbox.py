@@ -74,6 +74,8 @@ def visualize_bboxes(skimage_, bboxes, colors=None):
     if colors == None:
         colors = [[255, 0, 0] for _ in range(len(bboxes))]
     sk_image = np.copy(skimage_)
+    if isinstance(colors[0], tuple):
+        colors = [list(color) for color in colors]
     def relocate(x, t):
         x = max(0, x)
         x = min(t-1, x)
