@@ -1,7 +1,4 @@
-import glob
 from PIL import Image
-import os
-import matplotlib.pyplot as plt
 import xml.etree.ElementTree as ET
 import json
 import skimage
