@@ -2,9 +2,12 @@ import torch.nn.functional as F
 import torch
 
 
-def cross_entropy_loss2d(input, target, weight=None):
+def cross_entropy_loss2d(input, target, weight=None, ignore_index=-100):
     log_p = F.log_softmax(input)    
-    return F.nll_loss(log_p, target, weight=weight)
+    return F.nll_loss(log_p, target, weight=weight, ignore_index=ignore_index)
+
+def weighted_mse_loss(input, target, weight):
+        return ((weight * (input - target)) ** 2).mean()
 
 def get_class_weight(mask):
 	MASK_SIZE = 256
