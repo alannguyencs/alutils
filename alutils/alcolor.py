@@ -7,12 +7,6 @@ def hsv2rgb(h, v):
     (r, g, b) = colorsys.hsv_to_rgb(h, 1.0, v)
     return (color(r), color(g), color(b))
 
-def get_tuple_colors(num_color):
-    return [hsv2rgb(color_id / num_color, 1.0)
-            for color_id in range(num_color)]
-
-
-
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 DARK_RED = (136, 0, 21)
@@ -37,3 +31,9 @@ BLUE = (0, 0, 255)
 
 BBOX_COLORS = [DARK_RED, RED, ORANGE, YELLOW, GREEN, TURQUOISE, INDIGO, PURPLE,
                BROWN, ROSE, GOLD, LIGHT_YELLOW, LIME, LIGHT_TURQUOISE, BLUE_GRAY, LAVENDER]
+
+def get_tuple_colors(num_color):
+    if num_color <= len(BBOX_COLORS):
+        return BBOX_COLORS[:num_color]
+    return [hsv2rgb(color_id / num_color, 1.0)
+            for color_id in range(num_color)]

@@ -62,3 +62,22 @@ def stack_in_row(images, GAP=16):
     for image in images:
         new_image = append_images(new_image, image, GAP)
     return new_image
+
+def make_square(image, square_size=256, fill_color=(255, 255, 255)):
+    """
+    Aligns a PIL Image to a square image with padding.
+
+    Parameters:
+    - image: PIL.Image object, the original image to be aligned.
+    - min_size: int, the size of the sides of the square canvas. Default is 256.
+    - fill_color: tuple, the color of the padding. Default is white (255, 255, 255).
+
+    Returns:
+    - square_image: PIL.Image object, the original image centered on a square canvas with padding.
+    """
+    x, y = image.size
+    size = max(square_size, x, y)
+    new_image = Image.new('RGB', (size, size), fill_color)
+    new_image.paste(image, (int((size - x) / 2), int((size - y) / 2)))
+    new_image = new_image.resize((square_size, square_size), Image.LANCZOS)
+    return new_image
