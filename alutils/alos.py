@@ -1,4 +1,5 @@
 import os
+import shutil
 
 def get_file_name(file_path, with_extension=False):
     file_path = file_path.replace('\\', '/')
@@ -29,3 +30,4 @@ def gen_dir(new_dir, remove_old=False):
         os.mkdir(new_dir)
 
     return (new_dir + '/')
+

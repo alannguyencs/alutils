@@ -6,5 +6,5 @@ def load(json_path):
         return json.load(json_file)
 
 def save(json_data, json_path):
-    with open(json_path, 'w') as json_file:
-        json.dump(json_data, json_file)
+    with open(json_path, 'w', encoding='utf-8') as json_file:
+        json.dump(json_data, json_file, ensure_ascii=False)
